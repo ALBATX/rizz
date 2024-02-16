@@ -87,7 +87,7 @@ const App = () => {
 
 
       <div className="mt-10 flex items-center justify-center">
-        <div className="heart transform hover:scale-110 transition ease-in duration-300">
+        <div className="heart transition ease-in duration-300">
           <svg
             width="300px"
             height="300px"
