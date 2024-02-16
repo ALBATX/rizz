@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/rizz/static/css/main.4b950d20.css",
+    "main.js": "/rizz/static/js/main.e9db2c3f.js",
+    "static/js/453.3d4076b9.chunk.js": "/rizz/static/js/453.3d4076b9.chunk.js",
+    "index.html": "/rizz/index.html",
+    "main.4b950d20.css.map": "/rizz/static/css/main.4b950d20.css.map",
+    "main.e9db2c3f.js.map": "/rizz/static/js/main.e9db2c3f.js.map",
+    "453.3d4076b9.chunk.js.map": "/rizz/static/js/453.3d4076b9.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4b950d20.css",
+    "static/js/main.e9db2c3f.js"
+  ]
+}
