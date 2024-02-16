@@ -1,14 +1,15 @@
-// src/App.js
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import backgroundMusic from './rizz2.mp3';
 
 const App = () => {
   const [randomContent, setRandomContent] = useState({ text: '', imageUrl: '' });
   const [previousContent, setPreviousContent] = useState(null);
+  const [audioPlaying, setAudioPlaying] = useState(false);
 
   const contentArray = [
     {
-      text: 'Sen kedi misin acaba? Çünkü seni görünce sevesim geliyor.',
+      text: 'Sen kedi misin acaba? Çünkü seni görünce sevesim geliyorda.',
       imageUrl: 'https://cdn.discordapp.com/attachments/908045304597729352/1207881745916239912/1.png?ex=65e14289&is=65cecd89&hm=fd0c1cd7e3c9ae8189bfa9ef95ac384d8c8aec03e046e359bda815b164c50b66&',
     },
     {
@@ -47,19 +48,33 @@ const App = () => {
       text: 'Güzelim sen halter misin? Kalbim seni kaldıramıyor da.',
       imageUrl: 'https://cdn.discordapp.com/attachments/908045304597729352/1207893901000581152/313.png?ex=65e14ddb&is=65ced8db&hm=d2da137718e8b87d6a2946728a1c8c2202123fc6fa2ba503ac7114e656806c15&',
     },
-    // Diğer metin ve resim çiftleri
+    {
+      text: 'Şaşkına çevirsene beni "ş" olmadan.',
+      imageUrl: 'https://cdn.discordapp.com/attachments/908045304597729352/1207891663943377007/565.png?ex=65e14bc6&is=65ced6c6&hm=d81bbfc32228119669c18a91a26d9087d9652695e692fe7443f2be54cabe73e4&',
+    },
+    {
+      text: 'Yaz geliyor dediler yazdım gelir misin?',
+      imageUrl: 'https://cdn.discordapp.com/attachments/908045304597729352/1207883111942324296/2.png?ex=65e143cf&is=65cececf&hm=da35f2aca830b1051353cb7a8f861a171ecf790fd02fbb5a0dc15c736f252d6c&',
+    },
   ];
 
-  useEffect(() => {
-    // Sayfa yüklendiğinde veya bağımlılıklar değiştiğinde yeni bir içerik seç
-    getRandomContent();
-  }, []);
 
-  // Yeni bir içerik seçen fonksiyon
+  useEffect(() => {
+    if (!audioPlaying) {
+      document.body.addEventListener('click', handlePlayAudio);
+
+      getRandomContent();
+    }
+
+    return () => {
+      document.body.removeEventListener('click', handlePlayAudio);
+    };
+  }, [audioPlaying]); // sadece bir kez çalışmasını sağlar
+
+  // Yeni içerik
   const getRandomContent = () => {
     let randomIndex;
-    
-    // Eğer daha önce seçilen içerik varsa, farklı bir içerik seçene kadar devam et
+
     do {
       randomIndex = Math.floor(Math.random() * contentArray.length);
     } while (previousContent && contentArray[randomIndex] === previousContent);
@@ -71,10 +86,22 @@ const App = () => {
     setRandomContent(contentArray[randomIndex]);
   };
 
+  // Arka plan müziği çal
+  const playBackgroundMusic = () => {
+    const audio = new Audio(backgroundMusic);
+    audio.play();
+    audio.loop = true;
+    setAudioPlaying(true);
+  };
+
+  const handlePlayAudio = () => {
+    playBackgroundMusic();
+  };
+
   return (
     <body>
       <div className="absolute top-0 z-[-2] h-screen w-screen rotate-180 transform bg-white bg-[radial-gradient(60%_120%_at_50%_50%,hsla(0,0%,100%,0)_0,rgba(252,205,238,.5)_100%)]"></div>
-      <div className="mt-10 flex items-center justify-center">
+      <div className="sm:mt-10 mt-5 flex items-center justify-center">
         <img
           src={randomContent.imageUrl}
           alt="Random Image"
@@ -84,10 +111,8 @@ const App = () => {
       </div>
       <p className="text-rose-600	 tracking-tight text-xl sm:text-3xl w-full font-bold items-center justify-center text-center">{randomContent.text}</p>
 
-
-
       <div className="mt-10 flex items-center justify-center">
-        <div className="heart transition ease-in duration-300">
+        <div className="heart transform hover:scale-110 transition ease-in duration-300">
           <svg
             width="300px"
             height="300px"
